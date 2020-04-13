@@ -1,0 +1,101 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["resource_type", "resource_properties", "name"],
+        "properties": {
+          "resource_type": {
+            "type": "string",
+            "enum": ["resource_file", "package", "service"]
+          },
+          "resource_properties": {
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "allOf": [{              
+          "if": { "properties": { "resource_type": { "const": "resource_file" } } },
+          "then": {
+            "properties": { 
+              "resource_properties": {
+                "required": ["name", "path", "action"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "owner": {
+                    "type": "string"
+                  },
+                  "group": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["create", "delete"]
+                  }
+                }
+              }
+            }
+          },
+          "if": { "properties": { "resource_type": { "const": "package" } } },
+          "then": {
+            "properties": {
+              "resource_properties": {
+                "required": ["name", "provider", "action"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "provider": {
+                    "type": "string",
+                    "enum": ["apt"]
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["install", "remove"]
+                  }
+                }
+              }
+            }
+          },
+          "if": { "properties": { "resource_type": { "const": "service" } } },
+          "then": {
+            "properties": {
+              "resource_properties": {
+                "required": ["name", "action", "provider"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["start", "stop", "restart"]
+                  },
+                  "provider": {
+                    "type": "string",
+                    "enum": ["service"]
+                  }
+                }
+              }  
+            }
+          }
+        }]
+      }
+    }
+  }
+}

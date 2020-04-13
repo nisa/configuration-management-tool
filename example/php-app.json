@@ -1,0 +1,67 @@
+{
+  "resources": [
+    { 
+      "name": "install-apache",
+      "resource_type": "package",
+      "resource_properties": {
+        "name": "apache2",
+        "provider": "apt",
+        "action": "install",
+        "rollback": "remove"
+      }
+    },
+    {
+      "name": "install-php",
+      "resource_type": "package",
+      "resource_properties": {
+        "name": "php5",
+        "provider": "apt",
+        "action": "install",
+        "rollback": "remove"
+      }
+    },
+    {
+      "name": "install-php",
+      "resource_type": "package",
+      "resource_properties": {
+        "name": "libapache2-mod-php5",
+        "provider": "apt",
+        "action": "install",
+        "rollback": "remove"
+      }
+    },
+    { 
+      "name": "create-php-file",
+      "resource_type": "resource_file",
+      "resource_properties": {
+        "name": "index.php",
+        "owner": "root",
+        "path": "/var/www/html",
+        "content": "hello.php",
+        "action": "create",
+        "rollback": "delete"
+      }
+    },
+    { 
+      "name": "delete-index-file",
+      "resource_type": "resource_file",
+      "resource_properties": {
+        "name": "index.html",
+        "path": "/var/www/html",
+        "content": "index.html",
+        "action": "delete",
+        "rollback": "create"
+      }
+    },
+    { 
+      "name": "restart-service",
+      "resource_type": "service",
+      "resource_properties": {
+        "name": "apache2",
+        "action": "restart",
+        "provider": "service",
+        "rollback": "stop"
+      }
+    }
+  ]
+}

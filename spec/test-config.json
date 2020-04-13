@@ -1,0 +1,14 @@
+{
+  "resources": [
+    { 
+      "name": "install-package",
+      "resource_type": "package",
+      "resource_properties": {
+        "name": "package",
+        "provider": "apt",
+        "action": "install",
+        "rollback": "remove"
+      }
+    }
+  ]
+}

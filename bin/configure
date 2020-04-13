@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+$: << "lib/"
+
+require 'configuration_manager'
+
+if ARGV.count < 1
+  puts "USAGE: config <example/php-app.json>"
+  exit 1
+else
+  config_manager = ConfigurationManager.new(config_file: ARGV[0])
+  config_manager.execute
+end
