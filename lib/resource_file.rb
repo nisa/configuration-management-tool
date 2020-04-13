@@ -14,17 +14,15 @@ class ResourceFile
   private
 
   def create
-    precheck
-    File.exist?("#{@path}/#{@name}") ? true : save_file
+    File.exist?("#{@path}/#{@name}") ? true : save_file if precheck
   end
 
   def update
-    precheck
-    File.exist?("#{@path}/#{@name}") ? true : save_file
+    File.exist?("#{@path}/#{@name}") ? true : save_file if precheck
   end
 
   def delete
-    File.exist?("#{@path}/#{@name}") ? File.delete("#{@path}/#{@name}") : false
+    File.exist?("#{@path}/#{@name}") ? File.delete("#{@path}/#{@name}") : true
   end
 
   def precheck
